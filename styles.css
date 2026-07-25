@@ -1,16 +1,19 @@
 /* ============================================
-   Design tokens
+   Design tokens — Black / White / Silver
    ============================================ */
 :root {
-  --ink: #12181f;
-  --ink-soft: #2a323c;
-  --paper: #f7f4ec;
-  --paper-deep: #eee8d8;
-  --gold: #ad8a4e;
-  --gold-light: #c9ab72;
-  --gold-dim: rgba(173, 138, 78, 0.35);
-  --slate: #5a6270;
-  --rule: #ddd3ba;
+  --black: #0a0a0b;
+  --charcoal: #1c1d1f;
+  --white: #ffffff;
+  --paper: #fafafa;
+  --silver: #b7b9bd;
+  --silver-light: #e2e3e6;
+  --silver-dark: #8a8c91;
+  --line: #dcdde0;
+  --text: #3c3e42;
+  --text-soft: #6b6d72;
+
+  --metal-gradient: linear-gradient(115deg, #9a9ca1 0%, #e7e8ea 28%, #ffffff 50%, #e7e8ea 72%, #9a9ca1 100%);
 
   --radius-card: 6px;
   --radius-btn: 8px;
@@ -56,28 +59,31 @@ a {
 body {
   font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
   background:
-    radial-gradient(circle at 15% 10%, rgba(173, 138, 78, 0.08), transparent 40%),
-    radial-gradient(circle at 85% 90%, rgba(173, 138, 78, 0.06), transparent 45%),
-    var(--ink);
-  color: var(--slate);
+    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.05), transparent 45%),
+    radial-gradient(circle at 85% 100%, rgba(183, 185, 189, 0.08), transparent 50%),
+    var(--black);
+  color: var(--text);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: clamp(16px, 4vw, 32px) 16px;
   padding-top: max(clamp(16px, 4vw, 32px), env(safe-area-inset-top));
   padding-bottom: max(clamp(16px, 4vw, 32px), env(safe-area-inset-bottom));
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
 }
 
-/* ambient rule pattern, evokes ledger paper */
+/* faint diagonal brushed-metal texture behind the card */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background-image: repeating-linear-gradient(
-    to bottom,
+    135deg,
     transparent 0,
-    transparent 63px,
-    rgba(255, 255, 255, 0.02) 64px
+    transparent 2px,
+    rgba(255, 255, 255, 0.015) 3px,
+    transparent 4px
   );
   pointer-events: none;
 }
@@ -89,11 +95,11 @@ body::before {
   position: relative;
   width: 100%;
   max-width: var(--max-width);
-  background: var(--paper);
+  background: var(--white);
   border-radius: var(--radius-card);
   box-shadow:
-    0 40px 80px -20px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(173, 138, 78, 0.15);
+    0 40px 80px -20px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
   overflow: hidden;
   opacity: 0;
   transform: translateY(14px);
@@ -109,11 +115,12 @@ body::before {
 
 .card__band {
   height: 6px;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+  background: var(--metal-gradient);
+  background-size: 200% 100%;
 }
 
 .card__inner {
-  padding: var(--space-4) clamp(22px, 6vw, 40px) var(--space-3);
+  padding: var(--space-4) clamp(20px, 6vw, 40px) var(--space-3);
   text-align: center;
 }
 
@@ -135,8 +142,9 @@ body::before {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--paper);
-  box-shadow: 0 0 0 2px var(--gold), 0 12px 28px rgba(0, 0, 0, 0.18);
+  filter: grayscale(1) contrast(1.05);
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 2px var(--silver-dark), 0 12px 28px rgba(0, 0, 0, 0.25);
 }
 
 .seal::before {
@@ -144,7 +152,7 @@ body::before {
   position: absolute;
   inset: -8px;
   border-radius: 50%;
-  border: 1px dashed var(--gold-dim);
+  border: 1px dashed var(--silver);
 }
 
 /* ============================================
@@ -154,7 +162,7 @@ h1 {
   font-family: 'Amiri', serif;
   font-weight: 700;
   font-size: clamp(24px, 5vw, 30px);
-  color: var(--ink);
+  color: var(--black);
   letter-spacing: 0.3px;
   margin-bottom: 6px;
   line-height: 1.2;
@@ -165,7 +173,7 @@ h1 {
   font-size: 12.5px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--silver-dark);
   font-weight: 600;
   margin-bottom: var(--space-2);
 }
@@ -173,7 +181,7 @@ h1 {
 .rule {
   width: 56px;
   height: 2px;
-  background: var(--gold);
+  background: var(--metal-gradient);
   margin: 0 auto var(--space-2);
   border-radius: 2px;
 }
@@ -183,17 +191,17 @@ h1 {
   align-items: center;
   gap: 8px;
   padding: 9px clamp(16px, 4vw, 22px);
-  border: 1px solid var(--gold);
-  color: var(--ink);
+  border: 1px solid var(--black);
+  color: var(--black);
   font-weight: 600;
   font-size: clamp(13px, 3vw, 14.5px);
   border-radius: 30px;
   margin-bottom: var(--space-3);
-  background: linear-gradient(180deg, rgba(173, 138, 78, 0.08), transparent);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), transparent);
 }
 
 .role-badge i {
-  color: var(--gold);
+  color: var(--black);
   font-size: 13px;
 }
 
@@ -203,8 +211,8 @@ h1 {
 .credentials {
   list-style: none;
   text-align: right;
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   margin-bottom: var(--space-3);
 }
 
@@ -214,17 +222,17 @@ h1 {
   gap: 12px;
   padding: 13px 4px;
   font-size: clamp(13px, 3vw, 14.5px);
-  color: var(--ink-soft);
+  color: var(--text);
   font-weight: 500;
   line-height: 1.4;
 }
 
 .credentials li + li {
-  border-top: 1px dashed var(--rule);
+  border-top: 1px dashed var(--line);
 }
 
 .credentials i {
-  color: var(--gold);
+  color: var(--silver-dark);
   font-size: 14px;
   margin-top: 2px;
   flex-shrink: 0;
@@ -242,7 +250,7 @@ h1 {
   font-size: 11.5px;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--silver-dark);
   font-weight: 700;
   margin-bottom: var(--space-2);
 }
@@ -252,11 +260,11 @@ h1 {
   content: '';
   flex: 1;
   height: 1px;
-  background: var(--rule);
+  background: var(--line);
 }
 
 /* ============================================
-   Links
+   Links — unified monochrome treatment
    ============================================ */
 .links {
   display: flex;
@@ -265,19 +273,19 @@ h1 {
 }
 
 .btn {
-  --brand: var(--ink);
   display: flex;
   align-items: center;
   gap: 14px;
   padding: 13px 18px;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--line);
   border-radius: var(--radius-btn);
-  background: #fff;
+  background: var(--paper);
   text-decoration: none;
-  color: var(--ink);
+  color: var(--black);
   font-weight: 600;
   font-size: clamp(13px, 3vw, 14.5px);
-  transition: border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  transition: border-color 0.25s ease, background-color 0.25s ease,
+    transform 0.2s ease, box-shadow 0.25s ease;
   text-align: right;
   -webkit-tap-highlight-color: transparent;
 }
@@ -289,17 +297,24 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--brand);
-  color: #fff;
+  background: var(--black);
+  color: var(--white);
   font-size: 14px;
   flex-shrink: 0;
+  transition: background-color 0.25s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .btn:hover {
-    border-color: var(--gold);
+    border-color: var(--silver-dark);
+    background: var(--white);
     transform: translateX(-2px);
-    box-shadow: 0 8px 18px -8px rgba(173, 138, 78, 0.5);
+    box-shadow: 0 8px 18px -8px rgba(0, 0, 0, 0.25);
+  }
+
+  .btn:hover .icon {
+    background: var(--metal-gradient);
+    color: var(--black);
   }
 }
 
@@ -308,22 +323,9 @@ h1 {
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--black);
   outline-offset: 2px;
 }
-
-.instagram .icon { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
-.facebook  .icon { background: #3b5998; }
-.linkedin  .icon { background: #0077b5; }
-.telegram  .icon { background: #0088cc; }
-.discord   .icon { background: #5865f2; }
-.twitch    .icon { background: #6441a5; }
-.threads   .icon { background: #111; }
-.x         .icon { background: #000; }
-.github    .icon { background: #24292e; }
-.tiktok    .icon { background: #000; }
-.youtube   .icon { background: #d5302f; }
-.pinterest .icon { background: #bd081c; }
 
 /* ============================================
    Footer
@@ -331,10 +333,10 @@ h1 {
 .card__footer {
   margin-top: var(--space-3);
   padding-top: 18px;
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid var(--line);
   font-size: 12px;
   letter-spacing: 0.5px;
-  color: #9a9280;
+  color: var(--silver-dark);
   direction: ltr;
 }
 
@@ -342,27 +344,44 @@ h1 {
    Breakpoints
    ============================================ */
 
-/* Small phones */
+/* Extra-small phones (older iPhones, small Android) */
 @media (max-width: 360px) {
   .card__inner {
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .btn {
-    padding: 12px 14px;
+    padding: 11px 12px;
     gap: 10px;
+  }
+
+  .btn .icon {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .name-en {
+    letter-spacing: 2px;
   }
 }
 
-/* Tablets and up: slightly roomier card, larger tap targets stay comfortable */
+/* Standard phones */
+@media (min-width: 361px) and (max-width: 480px) {
+  .card {
+    border-radius: 4px;
+  }
+}
+
+/* Small tablets */
 @media (min-width: 640px) {
   .card {
     max-width: 480px;
   }
 }
 
-/* Desktop: add a touch more breathing room and a subtle lift on the whole card */
+/* Desktop */
 @media (min-width: 1024px) {
   body {
     padding: 48px;
@@ -371,30 +390,47 @@ h1 {
   .card {
     max-width: 500px;
   }
+}
 
-  @media (hover: hover) and (pointer: fine) {
-    .card:hover {
-      box-shadow:
-        0 50px 100px -24px rgba(0, 0, 0, 0.6),
-        0 0 0 1px rgba(173, 138, 78, 0.2);
-    }
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .card:hover {
+    box-shadow:
+      0 50px 100px -24px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(255, 255, 255, 0.08);
   }
 }
 
-/* Landscape phones: avoid the card feeling too tall */
+/* Landscape phones: avoid the card feeling too tall / clipped */
 @media (max-height: 480px) and (orientation: landscape) {
   body {
     align-items: flex-start;
   }
 
   .card__inner {
-    padding-top: 24px;
-    padding-bottom: 20px;
+    padding-top: 22px;
+    padding-bottom: 18px;
   }
 
   .seal {
-    margin-bottom: 12px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 10px;
   }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .credentials,
+  .role-badge {
+    margin-bottom: 14px;
+  }
+}
+
+/* Foldables / very narrow widths */
+@media (max-width: 280px) {
+  .name-en { display: none; }
+  .btn span:last-child { font-size: 12px; }
 }
 
 /* ============================================
@@ -415,8 +451,8 @@ h1 {
 
 @media (prefers-contrast: more) {
   :root {
-    --rule: #b8ab86;
-    --slate: #333;
+    --line: #8a8c91;
+    --text: #000;
   }
 
   .btn {
