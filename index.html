@@ -4,427 +4,329 @@
   <meta charset="UTF-8">
   <title>علي كامل | Ali Kamil</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --ink: #12181f;
+      --ink-soft: #2a323c;
+      --paper: #f7f4ec;
+      --paper-deep: #eee8d8;
+      --gold: #ad8a4e;
+      --gold-light: #c9ab72;
+      --gold-dim: rgba(173, 138, 78, 0.35);
+      --slate: #5a6270;
+      --rule: #ddd3ba;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    
+
+    html, body {
+      height: 100%;
+    }
+
     body {
-      background: linear-gradient(135deg, #f5f7fa 0%, #e4edf9 100%);
-      color: #333;
+      font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(173, 138, 78, 0.08), transparent 40%),
+        radial-gradient(circle at 85% 90%, rgba(173, 138, 78, 0.06), transparent 45%),
+        var(--ink);
+      color: var(--slate);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
-      position: relative;
-      overflow-x: hidden;
+      padding: 32px 18px;
     }
-    
+
+    /* ambient vertical rule pattern, evokes ledger paper */
     body::before {
       content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        radial-gradient(circle at 10% 20%, rgba(26, 42, 108, 0.05) 0%, rgba(26, 42, 108, 0) 20%);
-      pointer-events: none;
-    }
-    
-    /* Interactive elements container */
-    #interactiveElements {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 5;
-    }
-    
-    .interactive-element {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(26, 42, 108, 0.1);
-      transform: translate(-50%, -50%);
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 63px,
+        rgba(255, 255, 255, 0.02) 64px
+      );
       pointer-events: none;
     }
-    
-    .profile {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-      padding: 40px;
-      width: 100%;
-      max-width: 500px;
-      text-align: center;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    .card {
       position: relative;
+      width: 100%;
+      max-width: 460px;
+      background: var(--paper);
+      border-radius: 4px;
+      box-shadow:
+        0 40px 80px -20px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(173, 138, 78, 0.15);
       overflow: hidden;
-      border: 1px solid rgba(26, 42, 108, 0.1);
-      z-index: 10;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
     }
-    
-    .profile::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(26, 42, 108, 0.05) 0%, transparent 70%);
-      z-index: -1;
-      transform: rotate(30deg);
+
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
     }
-    
-    .profile:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+
+    .card__band {
+      height: 6px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
     }
-    
-    .avatar-container {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 25px;
-    }
-    
-    .avatar {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid #fff;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      transition: all 0.4s ease;
-    }
-    
-    .avatar-container::after {
-      content: '';
-      position: absolute;
-      top: -10px;
-      left: -10px;
-      right: -10px;
-      bottom: -10px;
-      border: 2px solid rgba(26, 42, 108, 0.2);
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-    
-    .avatar:hover {
-      transform: scale(1.05);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    }
-    
-    @keyframes pulse {
-      0% {
-        transform: scale(0.9);
-        opacity: 0.7;
-      }
-      50% {
-        transform: scale(1);
-        opacity: 0.4;
-      }
-      100% {
-        transform: scale(0.9);
-        opacity: 0.7;
-      }
-    }
-    
-    h1 {
-      color: #2c3e50;
-      margin-bottom: 10px;
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      background: linear-gradient(90deg, #1a2a6c, #3a7bd5);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .subtitle {
-      color: #7f8c8d;
-      font-size: 18px;
-      margin-bottom: 30px;
-      font-weight: 500;
-    }
-    
-    .stats {
-      display: flex;
-      justify-content: space-around;
-      margin: 25px 0;
-      padding: 15px;
-      background: rgba(236, 240, 241, 0.5);
-      border-radius: 15px;
-    }
-    
-    .stat-item {
+
+    .card__inner {
+      padding: 46px 40px 36px;
       text-align: center;
     }
-    
-    .stat-value {
-      font-size: 24px;
-      font-weight: 700;
-      color: #1a2a6c;
-    }
-    
-    .stat-label {
-      font-size: 14px;
-      color: #7f8c8d;
-    }
-    
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-    }
-    
-    .btn {
-      padding: 18px 25px;
-      border-radius: 15px;
-      text-decoration: none;
-      color: white;
-      font-weight: 600;
+
+    /* Monogram seal */
+    .seal {
+      width: 104px;
+      height: 104px;
+      margin: 0 auto 22px;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      position: relative;
-      overflow: hidden;
-      border: none;
-      font-size: 16px;
-      letter-spacing: 0.5px;
     }
-    
-    .btn i {
-      margin-left: 12px;
-      font-size: 20px;
-      width: 24px;
-      text-align: center;
-    }
-    
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
+
+    .seal img {
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: 0.5s;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--paper);
+      box-shadow: 0 0 0 2px var(--gold), 0 12px 28px rgba(0,0,0,0.18);
     }
-    
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+
+    .seal::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px dashed var(--gold-dim);
     }
-    
-    .btn:hover::before {
-      left: 100%;
+
+    h1 {
+      font-family: 'Amiri', serif;
+      font-weight: 700;
+      font-size: 30px;
+      color: var(--ink);
+      letter-spacing: 0.3px;
+      margin-bottom: 6px;
     }
-    
-    .btn:active {
-      transform: translateY(0) scale(0.98);
+
+    .name-en {
+      font-family: 'Cairo', sans-serif;
+      font-size: 12.5px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 22px;
     }
-    
-    /* ألوان خاصة بكل منصة */
-    .instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-    .facebook { background: linear-gradient(45deg, #3b5998, #4a69a8); }
-    .linkedin { background: linear-gradient(45deg, #0077b5, #0088cc); }
-    .telegram { background: linear-gradient(45deg, #0088cc, #00aaff); }
-    .discord { background: linear-gradient(45deg, #7289da, #8ea1e1); }
-    .twitch { background: linear-gradient(45deg, #6441a5, #7d5bbe); }
-    .x { background: linear-gradient(45deg, #000000, #1a1a1a); }
-    .threads { background: linear-gradient(45deg, #000000, #1a1a1a); }
-    .tiktok { background: linear-gradient(45deg, #000000, #fe2c55, #25f4ee); }
-    .youtube { background: linear-gradient(45deg, #ff0000, #cc0000); }
-    .pinterest { background: linear-gradient(45deg, #bd081c, #e60023); }
-    .github { background: linear-gradient(45deg, #333333, #24292e); }
-    
-    /* تصميم متجاوب */
-    @media (max-width: 600px) {
-      .profile {
-        padding: 30px 20px;
-        margin: 10px;
-      }
-      
-      .avatar {
-        width: 130px;
-        height: 130px;
-      }
-      
-      h1 {
-        font-size: 28px;
-      }
-      
-      .subtitle {
-        font-size: 16px;
-      }
-      
-      .btn {
-        padding: 16px 20px;
-        font-size: 15px;
-      }
+
+    .rule {
+      width: 56px;
+      height: 2px;
+      background: var(--gold);
+      margin: 0 auto 22px;
+      border-radius: 2px;
     }
-    
-    .footer {
-      margin-top: 30px;
-      color: #7f8c8d;
+
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 22px;
+      border: 1px solid var(--gold);
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 14.5px;
+      border-radius: 30px;
+      margin-bottom: 26px;
+      background: linear-gradient(180deg, rgba(173,138,78,0.08), transparent);
+    }
+
+    .role-badge i { color: var(--gold); font-size: 13px; }
+
+    .credentials {
+      list-style: none;
+      text-align: right;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 30px;
+    }
+
+    .credentials li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 4px;
+      font-size: 14.5px;
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+
+    .credentials li + li {
+      border-top: 1px dashed var(--rule);
+    }
+
+    .credentials i {
+      color: var(--gold);
       font-size: 14px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      width: 16px;
+      text-align: center;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11.5px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .section-label::before,
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn {
+      --brand: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 18px;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      background: #fff;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 14.5px;
+      transition: border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+      text-align: right;
+    }
+
+    .btn .icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--brand);
+      color: #fff;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .btn:hover {
+      border-color: var(--gold);
+      transform: translateX(-2px);
+      box-shadow: 0 8px 18px -8px rgba(173, 138, 78, 0.5);
+    }
+
+    .instagram .icon { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
+    .facebook  .icon { background: #3b5998; }
+    .linkedin  .icon { background: #0077b5; }
+    .telegram  .icon { background: #0088cc; }
+    .discord   .icon { background: #5865f2; }
+    .twitch    .icon { background: #6441a5; }
+    .threads   .icon { background: #111; }
+    .x         .icon { background: #000; }
+    .github    .icon { background: #24292e; }
+    .tiktok    .icon { background: #000; }
+    .youtube   .icon { background: #d5302f; }
+    .pinterest .icon { background: #bd081c; }
+
+    .card__footer {
+      margin-top: 30px;
+      padding-top: 18px;
+      border-top: 1px solid var(--rule);
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      color: #9a9280;
       direction: ltr;
+    }
+
+    @media (max-width: 480px) {
+      .card__inner { padding: 38px 24px 28px; }
+      h1 { font-size: 26px; }
+      .seal { width: 90px; height: 90px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card { animation: none; opacity: 1; transform: none; }
+      .btn:hover { transform: none; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Interactive elements container -->
-  <div id="interactiveElements"></div>
-  
-  <main class="profile">
-    <div class="avatar-container">
-      <img class="avatar" src="6316c18ca67da202107.png?raw=true" alt="علي كامل | Ali Kamil">
-    </div>
-    <h1>علي كامل | Ali Kamil</h1>
-    <p class="subtitle">Digital Creator & Social Media Influencer</p>
-    
-    <section class="links">
-      <a class="btn instagram" href="https://www.instagram.com/lo_oxll?igsh=MWx0dmxpbTU3bXlyNQ%3D%3D&utm_source=qr" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
-      <a class="btn facebook"  href="https://www.facebook.com/profile.php?id=100010347520733" target="_blank"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
-      <a class="btn linkedin"  href="https://www.linkedin.com/in/alikamilyaseen?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
-      <a class="btn telegram"  href="https://t.me/lo_oxll" target="_blank"><i class="fa-brands fa-telegram"></i> Telegram</a>
-      <a class="btn discord"   href="https://discord.com/users/994903778153201676" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a>
-      <a class="btn twitch"    href="https://twitch.tv/lo_oxll" target="_blank"><i class="fa-brands fa-twitch"></i> Twitch</a>
-      <a class="btn threads"   href="https://www.threads.net/@lo_oxll" target="_blank"><i class="fa-brands fa-threads"></i> Threads</a>
-      <a class="btn x"         href="https://x.com/lo_oxll" target="_blank"><i class="fa-brands fa-square-x-twitter"></i> X</a>
-      <a class="btn github"    href="https://github.com/lo-oxll" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
-      <a class="btn tiktok"    href="https://www.tiktok.com/@lo_oxll?_t=ZS-8yy7IrSGCY9&_r=1" target="_blank"><i class="fa-brands fa-tiktok"></i> TikTok</a>
-      <a class="btn youtube"   href="https://youtube.com/@lo_oxll?si=wrcpKba1MRvAAdqz" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a>
-      <a class="btn pinterest" href="https://www.pinterest.com/lo_oxll" target="_blank"><i class="fa-brands fa-pinterest"></i> Pinterest</a>
-    </section>
-    
-    <div class="footer">
-      © 2025 Ali Kamil. All rights reserved.
+  <main class="card">
+    <div class="card__band"></div>
+    <div class="card__inner">
+
+      <div class="seal">
+        <img src="6316c18ca67da202107.png?raw=true" alt="علي كامل | Ali Kamil">
+      </div>
+
+      <h1>علي كامل</h1>
+      <div class="name-en">Ali Kamil</div>
+      <div class="rule"></div>
+
+      <span class="role-badge"><i class="fa-solid fa-briefcase"></i> محاسب سيطرة مخزنية</span>
+
+      <ul class="credentials">
+        <li><i class="fa-solid fa-graduation-cap"></i> بكالوريوس إدارة تقنيات المعلومات</li>
+        <li><i class="fa-solid fa-certificate"></i> دبلوم تقنيات الإحصاء (فرع المعلوماتية)</li>
+      </ul>
+
+      <div class="section-label">التواصل</div>
+
+      <section class="links">
+        <a class="btn instagram" href="https://www.instagram.com/lo_oxll?igsh=MWx0dmxpbTU3bXlyNQ%3D%3D&utm_source=qr" target="_blank"><span class="icon"><i class="fa-brands fa-instagram"></i></span> Instagram</a>
+        <a class="btn facebook"  href="https://www.facebook.com/profile.php?id=100010347520733" target="_blank"><span class="icon"><i class="fa-brands fa-facebook-f"></i></span> Facebook</a>
+        <a class="btn linkedin"  href="https://www.linkedin.com/in/alikamilyaseen?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><span class="icon"><i class="fa-brands fa-linkedin-in"></i></span> LinkedIn</a>
+        <a class="btn telegram"  href="https://t.me/lo_oxll" target="_blank"><span class="icon"><i class="fa-brands fa-telegram"></i></span> Telegram</a>
+        <a class="btn discord"   href="https://discord.com/users/994903778153201676" target="_blank"><span class="icon"><i class="fa-brands fa-discord"></i></span> Discord</a>
+        <a class="btn twitch"    href="https://twitch.tv/lo_oxll" target="_blank"><span class="icon"><i class="fa-brands fa-twitch"></i></span> Twitch</a>
+        <a class="btn threads"   href="https://www.threads.net/@lo_oxll" target="_blank"><span class="icon"><i class="fa-brands fa-threads"></i></span> Threads</a>
+        <a class="btn x"         href="https://x.com/lo_oxll" target="_blank"><span class="icon"><i class="fa-brands fa-square-x-twitter"></i></span> X</a>
+        <a class="btn github"    href="https://github.com/lo-oxll" target="_blank"><span class="icon"><i class="fa-brands fa-github"></i></span> GitHub</a>
+        <a class="btn tiktok"    href="https://www.tiktok.com/@lo_oxll?_t=ZS-8yy7IrSGCY9&_r=1" target="_blank"><span class="icon"><i class="fa-brands fa-tiktok"></i></span> TikTok</a>
+        <a class="btn youtube"   href="https://youtube.com/@lo_oxll?si=wrcpKba1MRvAAdqz" target="_blank"><span class="icon"><i class="fa-brands fa-youtube"></i></span> YouTube</a>
+        <a class="btn pinterest" href="https://www.pinterest.com/lo_oxll" target="_blank"><span class="icon"><i class="fa-brands fa-pinterest"></i></span> Pinterest</a>
+      </section>
+
+      <div class="card__footer">© 2025 Ali Kamil. All rights reserved.</div>
     </div>
   </main>
-
-  <script>
-    // Professional website interactions
-    document.addEventListener('DOMContentLoaded', function() {
-      const interactiveElements = document.getElementById('interactiveElements');
-      
-      // Create floating elements for professional interaction
-      function createFloatingElements() {
-        for (let i = 0; i < 15; i++) {
-          const element = document.createElement('div');
-          element.classList.add('interactive-element');
-          
-          // Random size
-          const size = Math.random() * 40 + 10;
-          element.style.width = `${size}px`;
-          element.style.height = `${size}px`;
-          
-          // Random position
-          element.style.left = `${Math.random() * 100}%`;
-          element.style.top = `${Math.random() * 100}%`;
-          
-          // Random color with transparency
-          const hue = 220 + Math.random() * 20; // Blue tones
-          element.style.backgroundColor = `hsla(${hue}, 50%, 60%, 0.15)`;
-          
-          // Random animation
-          const duration = Math.random() * 20 + 10;
-          const delay = Math.random() * 5;
-          element.style.animation = `float${Math.floor(Math.random() * 3) + 1} ${duration}s infinite ease-in-out ${delay}s`;
-          
-          interactiveElements.appendChild(element);
-        }
-        
-        // Add CSS for floating animations
-        const style = document.createElement('style');
-        style.textContent = `
-          @keyframes float1 {
-            0%, 100% { transform: translate(-50%, -50%) translate(0, 0); }
-            50% { transform: translate(-50%, -50%) translate(20px, 20px); }
-          }
-          
-          @keyframes float2 {
-            0%, 100% { transform: translate(-50%, -50%) translate(0, 0); }
-            50% { transform: translate(-50%, -50%) translate(-30px, 15px); }
-          }
-          
-          @keyframes float3 {
-            0%, 100% { transform: translate(-50%, -50%) translate(0, 0); }
-            50% { transform: translate(-50%, -50%) translate(10px, -25px); }
-          }
-        `;
-        document.head.appendChild(style);
-      }
-      
-      // Mouse move interaction
-      document.addEventListener('mousemove', function(e) {
-        const elements = document.querySelectorAll('.interactive-element');
-        const mouseX = e.clientX / window.innerWidth;
-        const mouseY = e.clientY / window.innerHeight;
-        
-        elements.forEach(element => {
-          // Move elements slightly toward mouse position
-          const moveX = (mouseX - 0.5) * 30;
-          const moveY = (mouseY - 0.5) * 30;
-          element.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px))`;
-        });
-      });
-      
-      // Click interaction - create ripple effect
-      document.addEventListener('click', function(e) {
-        // Don't create effect if clicking on profile
-        if (!e.target.closest('.profile')) {
-          createRipple(e.clientX, e.clientY);
-        }
-      });
-      
-      // Function to create ripple effect
-      function createRipple(x, y) {
-        const ripple = document.createElement('div');
-        ripple.style.position = 'fixed';
-        ripple.style.left = `${x}px`;
-        ripple.style.top = `${y}px`;
-        ripple.style.width = '0';
-        ripple.style.height = '0';
-        ripple.style.borderRadius = '50%';
-        ripple.style.backgroundColor = 'rgba(26, 42, 108, 0.2)';
-        ripple.style.transform = 'translate(-50%, -50%)';
-        ripple.style.pointerEvents = 'none';
-        ripple.style.zIndex = '5';
-        document.body.appendChild(ripple);
-        
-        // Animate ripple
-        let size = 0;
-        const maxSize = Math.max(window.innerWidth, window.innerHeight) * 1.5;
-        const rippleInterval = setInterval(() => {
-          size += 25;
-          ripple.style.width = `${size}px`;
-          ripple.style.height = `${size}px`;
-          ripple.style.opacity = `${1 - size / maxSize}`;
-          
-          if (size > maxSize) {
-            clearInterval(rippleInterval);
-            document.body.removeChild(ripple);
-          }
-        }, 20);
-      }
-      
-      // Initialize floating elements
-      createFloatingElements();
-    });
-  </script>
 </body>
 </html>
