@@ -398,6 +398,48 @@ h1 {
 [data-theme='dark'] .theme-toggle .fa-moon { display: none; }
 
 /* ============================================
+   Back-to-home button
+   ============================================ */
+.home-btn {
+  position: fixed;
+  top: max(14px, env(safe-area-inset-top));
+  inset-inline-end: max(14px, env(safe-area-inset-right));
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 30px;
+  border: 1px solid var(--border-line);
+  background: var(--bg-btn);
+  color: var(--fg-heading);
+  font-weight: 600;
+  font-size: 13.5px;
+  text-decoration: none;
+  transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.home-btn i {
+  font-size: 13px;
+}
+
+.home-btn:hover {
+  border-color: var(--silver-dark);
+  background: var(--bg-btn-hover);
+}
+
+.home-btn:active {
+  transform: scale(0.96);
+}
+
+.home-btn:focus-visible {
+  outline: 2px solid var(--border-strong);
+  outline-offset: 2px;
+}
+
+/* ============================================
    Breakpoints
    ============================================ */
 
@@ -422,6 +464,9 @@ h1 {
   .name-en {
     letter-spacing: 2px;
   }
+
+  .home-btn span { display: none; }
+  .home-btn { padding: 0; width: 42px; justify-content: center; }
 }
 
 /* Small tablets and up: keep content column comfortably narrow, card still fills the screen */
