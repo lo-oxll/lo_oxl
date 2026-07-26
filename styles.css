@@ -228,31 +228,40 @@ h1 {
 
 .roles {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
-  gap: 10px;
+  align-items: center;
+  gap: 8px;
   margin-bottom: var(--space-3);
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--border-line);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.roles::-webkit-scrollbar {
+  display: none;
 }
 
 .role-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 9px clamp(16px, 4vw, 22px);
+  gap: 6px;
+  padding: 8px clamp(10px, 2.6vw, 16px);
   border: 1px solid var(--border-strong);
   color: var(--fg-heading);
   font-weight: 600;
-  font-size: clamp(13px, 3vw, 14.5px);
+  font-size: clamp(10.5px, 2.4vw, 13px);
   border-radius: 30px;
   background: linear-gradient(180deg, rgba(127, 127, 127, 0.08), transparent);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .role-badge i {
   color: var(--fg-heading);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 /* ============================================
@@ -301,7 +310,8 @@ h1 {
   font-size: clamp(13px, 3vw, 14.5px);
   transition: border-color 0.25s ease, background-color 0.25s ease,
     transform 0.2s ease, box-shadow 0.25s ease;
-  text-align: right;
+  text-align: left;
+  direction: ltr;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -319,17 +329,14 @@ h1 {
   transition: background-color 0.25s ease;
 }
 
-/* Email / phone entries carry Latin text & digits — keep them LTR so the
-   address/number itself doesn't get visually reversed inside the RTL card. */
+/* Email / phone entries carry Latin text & digits — already LTR by default
+   above; keep their text truncation behavior. */
 .btn.email,
 .btn.phone {
-  direction: ltr;
-  text-align: left;
   overflow: hidden;
 }
 
-.btn.email span:last-child,
-.btn.phone span:last-child {
+.btn span:last-child {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -339,7 +346,7 @@ h1 {
   .btn:hover {
     border-color: var(--silver-dark);
     background: var(--bg-btn-hover);
-    transform: translateX(-2px);
+    transform: translateX(2px);
     box-shadow: 0 8px 18px -8px rgba(0, 0, 0, 0.25);
   }
 
@@ -481,6 +488,15 @@ h1 {
     letter-spacing: 2px;
   }
 
+  .role-badge {
+    padding: 7px 8px;
+    gap: 4px;
+  }
+
+  .role-badge i {
+    font-size: 11px;
+  }
+
   .home-btn span { display: none; }
   .home-btn { padding: 0; width: 42px; justify-content: center; }
 }
@@ -529,8 +545,8 @@ h1 {
   .btn span:last-child { font-size: 12px; }
 
   .role-badge {
-    white-space: normal;
-    text-align: center;
+    font-size: 9.5px;
+    padding: 6px 6px;
   }
 }
 
