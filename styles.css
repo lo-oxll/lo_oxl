@@ -228,31 +228,24 @@ h1 {
 
 .roles {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 8px;
   margin-bottom: var(--space-3);
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--border-line);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.roles::-webkit-scrollbar {
-  display: none;
 }
 
 .role-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px clamp(10px, 2.6vw, 16px);
+  padding: 8px clamp(9px, 2.4vw, 16px);
   border: 1px solid var(--border-strong);
   color: var(--fg-heading);
   font-weight: 600;
-  font-size: clamp(10.5px, 2.4vw, 13px);
+  font-size: clamp(9.5px, 2.2vw, 13px);
   border-radius: 30px;
   background: linear-gradient(180deg, rgba(127, 127, 127, 0.08), transparent);
   white-space: nowrap;
