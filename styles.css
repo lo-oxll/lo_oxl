@@ -319,6 +319,22 @@ h1 {
   transition: background-color 0.25s ease;
 }
 
+/* Email / phone entries carry Latin text & digits — keep them LTR so the
+   address/number itself doesn't get visually reversed inside the RTL card. */
+.btn.email,
+.btn.phone {
+  direction: ltr;
+  text-align: left;
+  overflow: hidden;
+}
+
+.btn.email span:last-child,
+.btn.phone span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .btn:hover {
     border-color: var(--silver-dark);
