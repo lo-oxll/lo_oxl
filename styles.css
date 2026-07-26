@@ -228,24 +228,35 @@ h1 {
 
 .roles {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   align-items: center;
   gap: 8px;
+  margin-left: calc(-1 * max(14px, env(safe-area-inset-left)));
+  margin-right: calc(-1 * max(14px, env(safe-area-inset-right)));
   margin-bottom: var(--space-3);
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--border-line);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.roles::-webkit-scrollbar {
+  display: none;
 }
 
 .role-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px clamp(9px, 2.4vw, 16px);
+  padding: 8px clamp(10px, 2.6vw, 16px);
   border: 1px solid var(--border-strong);
   color: var(--fg-heading);
   font-weight: 600;
-  font-size: clamp(9.5px, 2.2vw, 13px);
+  font-size: clamp(11px, 2.6vw, 13px);
   border-radius: 30px;
   background: linear-gradient(180deg, rgba(127, 127, 127, 0.08), transparent);
   white-space: nowrap;
@@ -292,6 +303,7 @@ h1 {
 .btn {
   display: flex;
   align-items: center;
+  width: 100%;
   gap: 14px;
   padding: 13px 18px;
   border: 1px solid var(--border-line);
