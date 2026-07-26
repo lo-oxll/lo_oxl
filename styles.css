@@ -160,8 +160,8 @@ body::before {
   padding: var(--space-4) clamp(20px, 6vw, 40px) var(--space-3);
   padding-top: max(var(--space-4), calc(env(safe-area-inset-top) + var(--space-3)));
   padding-bottom: max(var(--space-3), calc(env(safe-area-inset-bottom) + var(--space-2)));
-  padding-left: max(clamp(20px, 6vw, 40px), env(safe-area-inset-left));
-  padding-right: max(clamp(20px, 6vw, 40px), env(safe-area-inset-right));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
   text-align: center;
 }
 
@@ -462,8 +462,8 @@ h1 {
 /* Extra-small phones (older iPhones, small Android) */
 @media (max-width: 360px) {
   .card__inner {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: max(14px, env(safe-area-inset-left));
+    padding-right: max(14px, env(safe-area-inset-right));
   }
 
   .btn {
